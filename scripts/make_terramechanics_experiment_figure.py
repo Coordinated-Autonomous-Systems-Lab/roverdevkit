@@ -27,9 +27,9 @@ from roverdevkit.validation.terramechanics_experiment import (
 )
 
 SOURCE_LABELS: dict[str, str] = {
-    "ding2011": "Ding et al. 2011  (Wh3, R=157 mm, 80 N)",
-    "wang_han_2016_kls1": "Wang & Han 2016, KLS-1  (R=85 mm, 59 N)",
-    "hurrell2025_rashid1": "Hurrell et al. 2025, Rashid-1  (R=100 mm, 24.5 N)",
+    "ding2011": "Ding et al. 2011",
+    "wang_han_2016_kls1": "Wang & Han 2016 (KLS-1)",
+    "hurrell2025_rashid1": "Hurrell et al. 2025 (Rashid-1)",
 }
 
 # (axis label, measured column, BW column, unit scale).
@@ -79,14 +79,15 @@ def main(argv: list[str] | None = None) -> int:
     set_paper_rcparams()
     import matplotlib.pyplot as plt
 
+    n_src = len(plot_sources)
     fig, axes = plt.subplots(
-        len(QUANTITIES), len(plot_sources),
-        figsize=(4.7 * len(plot_sources), 7.4), squeeze=False,
+        n_src, len(QUANTITIES),
+        figsize=(7.2, 3.1 * n_src), squeeze=False,
     )
-    for col, source in enumerate(plot_sources):
+    for row, source in enumerate(plot_sources):
         sub = terra[terra["source"] == source]
         hg_lug = sub.loc[sub["grouser_height_m"] > 0, "grouser_height_m"].max()
-        for row, (ylab, meascol, bwcol, scale) in enumerate(QUANTITIES):
+        for col, (ylab, meascol, bwcol, scale) in enumerate(QUANTITIES):
             ax = axes[row][col]
             for hg, marker, _name, color in FAMILIES:
                 target_hg = hg_lug if hg is None else hg
@@ -96,25 +97,25 @@ def main(argv: list[str] | None = None) -> int:
                 if fam.empty:
                     continue
                 fam_label = (
-                    "smooth (h=0)" if target_hg == 0
-                    else f"grousered (h={target_hg * 1000:.0f} mm)"
+                    "Smooth" if target_hg == 0
+                    else f"Grousered ({target_hg * 1000:.0f} mm)"
                 )
                 ax.plot(
                     fam["slip"], fam[bwcol] * scale, "-", color=color, lw=1.6,
-                    label=f"BW \u2014 {fam_label}",
+                    label=f"BW, {fam_label}",
                 )
                 meas = fam[fam[meascol].notna()]
                 if not meas.empty:
                     ax.plot(
                         meas["slip"], meas[meascol] * scale, marker, color=color,
-                        ms=8, mfc="none", mew=1.6, label=f"measured \u2014 {fam_label}",
+                        ms=8, mfc="none", mew=1.6, label=f"Measured, {fam_label}",
                     )
-            if row == 0:
-                ax.set_title(SOURCE_LABELS[source], fontsize=9)
+            if col == 0:
                 ax.axhline(0.0, color="0.75", lw=0.6, zorder=0)
+            ax.set_title(SOURCE_LABELS[source])
             ax.set_xlabel("slip ratio")
             ax.set_ylabel(ylab)
-            ax.legend(fontsize=7, frameon=False)
+            ax.legend(loc="best")
 
     if summary["n_digitised"] == 0:
         fig.suptitle(

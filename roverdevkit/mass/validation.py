@@ -20,7 +20,7 @@ calibration unchanged and explicitly mark sub-5-kg rovers as
 
 The primary validation statistic is **median absolute percent error on
 in-class rovers**; the target is <= 30 % (plan §8). Out-of-regime
-rovers (CADRE at 2 kg, Yutu-2 at 135 kg, etc.) are reported alongside
+rovers (Yutu-2 at 135 kg, MARSOKHOD at 70 kg) are reported alongside
 but excluded from the primary statistic.
 """
 

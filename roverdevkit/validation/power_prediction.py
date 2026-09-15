@@ -43,29 +43,32 @@ rover.*
 
 Fixed literature panel parameter set (applied to every rover)
 -------------------------------------------------------------
-Net DC system efficiency is built as a product of independently cited factors,
-none of which is fit to the rovers in this study:
+Net DC system efficiency is a product of four factors, none fitted to the
+rovers in this study:
 
     eta_sys = eta_cell * f_pack * f_elec * f_temp
 
 ==============  =======  ===================================================
 factor          value    source / rationale
 ==============  =======  ===================================================
-eta_cell        0.30     Triple-junction GaAs/Ge space cell, BOL AM0
-                         (Spectrolab XTJ ~29.5 %, AzurSpace 3G30 ~29.5-30 %).
-f_pack          0.90     Active cell area / panel area (Patel, *Spacecraft
-                         Power Systems*, 2nd ed., Ch. 4).
+eta_cell        0.30     Typical beginning-of-life AM0 efficiency for a
+                         space-grade solar cell. Not a cited datasheet
+                         value; the prediction is swept over 0.28--0.32.
+f_pack          0.90     Active cell area / panel area (Patel & Beik,
+                         *Spacecraft Power Systems*, 2nd ed., 2023).
 f_elec          0.92     MPPT + harness + blocking-diode + assembly losses
-                         (SMAD, 3rd ed., Ch. 11).
-f_temp          0.90     Lunar-noon high-temperature derate (GaAs power
-                         coefficient ~ -0.06 %/degC; cell ~+90 degC above the
-                         28 degC AM0 reference).
+                         (Wertz, Everett & Puschell, *The New SMAD*, 2011).
+f_temp          0.90     Computed, not cited: GaAs power coefficient
+                         ~-0.06 %/K times a cell ~90 K above the 28 degC
+                         AM0 reference.
 ==============  =======  ===================================================
 
     eta_sys = 0.30 * 0.90 * 0.92 * 0.90 = 0.2236
 
 The clean-array dust transmission factor for a fresh (lunar-day-1) array is set
-to ``0.98``; this is a single literature value, not a per-rover knob.
+to ``0.98``. This is an assumed 2 % optical loss, not a cited value; it is applied
+uniformly so it is not a per-rover knob, and the prediction is insensitive to it
+next to the cell-efficiency spread (see :func:`sensitivity_band_w`).
 
 All flown rovers are evaluated with a **horizontal-equivalent** panel
 (``panel_tilt_deg = 0``) because their published peak-solar bands in
@@ -74,10 +77,10 @@ against horizontal pointing (see the registry's ``panel_tilt_deg`` note).
 
 References
 ----------
-Larson, W. J. & Wertz, J. R. *Space Mission Analysis and Design (SMAD)*, 3rd ed.,
-Microcosm/Springer, 1999, Ch. 11.
+Wertz, J. R., Everett, D. F. & Puschell, J. J. *Space Mission Engineering:
+The New SMAD*. Microcosm Press, 2011.
 
-Patel, M. R. *Spacecraft Power Systems*, 2nd ed., CRC Press, 2017, Ch. 4-5.
+Patel, M. R. & Beik, O. *Spacecraft Power Systems*, 2nd ed. CRC Press, 2023.
 """
 
 from __future__ import annotations

@@ -216,7 +216,7 @@ def class_generic_scenario_for(rover_name: str) -> str:
 # Design-space distance helpers
 # ---------------------------------------------------------------------------
 
-# Continuous (non-integer) design variables used in the normalised L2.
+# Continuous (non-integer) design variables reported per-variable.
 _CONTINUOUS_VARIABLES: tuple[str, ...] = (
     "wheel_radius_m",
     "wheel_width_m",
@@ -229,6 +229,17 @@ _CONTINUOUS_VARIABLES: tuple[str, ...] = (
     "peak_wheel_torque_nm",
 )
 
+# Subset used in the normalised L2. ``wheelbase_m`` is carried in the
+# design vector and reported, but no sub-model consumes it (it reaches
+# neither the mass, terramechanics, power, thermal, nor traverse
+# stage), so the optimiser has no signal on it and its Pareto values
+# are unconstrained. Scoring design-space agreement on a coordinate the
+# evaluator never constrains would measure search noise, so it is
+# excluded here. Its per-variable error is still reported.
+_DISTANCE_VARIABLES: tuple[str, ...] = tuple(
+    name for name in _CONTINUOUS_VARIABLES if name != "wheelbase_m"
+)
+
 # Integer-typed design variables reported as exact-match diagnostics
 # rather than rolled into the L2 (no meaningful distance metric for a
 # 4-vs-6 wheel count).
@@ -236,9 +247,9 @@ _INTEGER_VARIABLES: tuple[str, ...] = ("n_wheels", "grouser_count")
 
 
 def _normalised_vector(design: DesignVector) -> np.ndarray:
-    """Map continuous fields of a design to [0, 1] via DESIGN_BOUNDS."""
+    """Map distance-metric fields of a design to [0, 1] via DESIGN_BOUNDS."""
     values = []
-    for name in _CONTINUOUS_VARIABLES:
+    for name in _DISTANCE_VARIABLES:
         lo, hi = DESIGN_BOUNDS[name]
         span = max(hi - lo, 1e-12)
         x = float(getattr(design, name))

@@ -232,7 +232,7 @@ regenerates the figures into `paper/figures/`.
 
 ## Research Background
 
-RoverDevKit is developed and maintained by the Autonomous Mission Systems Lab at Duke University.
+RoverDevKit is developed and maintained by the Collaborative Autonomous Systems Lab at Duke University.
 The project focuses on open, reproducible design-space exploration for lunar
 micro-rovers in the pre-Phase A / conceptual-design regime.
 

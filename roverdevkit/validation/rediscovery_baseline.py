@@ -3,7 +3,7 @@
 The headline rediscovery metric (§5.4) reports each rover's normalised
 design-space distance to the nearest optimiser Pareto point *relative to
 a null baseline*. The unit-cube null is the **mean** pairwise L2 between
-uniformly random points in the 9-D unit cube, ~1.20 (computed with the
+uniformly random points in the 8-D unit cube, ~1.13 (computed with the
 same estimator as the feasible null below; note the closed-form
 *root-mean-square* separation ``sqrt(9 / 6) ~= 1.22`` is slightly larger,
 but is the RMS rather than the mean). That null is
@@ -33,7 +33,7 @@ no forward progress). For each registry rover we
 
    - ``feasible_random_pair_mean`` / ``feasible_random_pair_median`` —
      the mean / median pairwise normalised L2 *within* the feasible
-     set. This is the direct, tougher analogue of the ~1.20 unit-cube
+     set. This is the direct, tougher analogue of the ~1.13 unit-cube
      null: the typical separation between two random *feasible* rovers.
    - ``rover_to_centroid_distance`` — the rover's distance to the
      feasible-region centroid (the "typical feasible design").
@@ -43,7 +43,7 @@ no forward progress). For each registry rover we
      null).
 
 The rediscovery ratio can then be reported against **both** nulls:
-``design_space_distance / UNIT_CUBE_RANDOM_PAIR`` (unit cube, ~1.20) and
+``design_space_distance / UNIT_CUBE_RANDOM_PAIR`` (unit cube, ~1.13) and
 ``design_space_distance / feasible_random_pair_mean`` (feasible region).
 Both nulls are mean pairwise distances, so the comparison is
 apples-to-apples; the feasible null is the defensible number.
@@ -67,7 +67,7 @@ carries no thermal constraint.
 
 Empirically this physically-feasible region fills most of the box
 (``feasible_fraction`` ~0.77-0.92 across the registry), so its
-random-pair null comes out at ~1.17 — only marginally below the ~1.20
+random-pair null comes out at ~1.10 — only marginally below the ~1.13
 unit-cube value. That is itself the reportable result: the rediscovery
 ratio is **not** an artifact of a null dominated by infeasible space.
 
@@ -106,7 +106,7 @@ from roverdevkit.validation.rover_registry import (
 )
 from roverdevkit.validation.rover_rediscovery import (
     _CLASS_GENERIC_SCENARIO,
-    _CONTINUOUS_VARIABLES,
+    _DISTANCE_VARIABLES,
     _evaluate_rover_under,
     _normalised_l2,
     _normalised_vector,
@@ -256,7 +256,7 @@ def _unit_cube_random_pair_mean(
     pairwise distances. The closed-form *root-mean-square* separation
     between two i.i.d. uniform points in the d-cube is ``sqrt(d / 6)``
     (~1.225 for d = 9), but that is the RMS, not the mean: by Jensen the
-    mean separation is strictly smaller (~1.20 for d = 9). The feasible
+    mean separation is strictly smaller (~1.13 for d = 9). The feasible
     null reports a mean, so we match it here rather than using the RMS.
     """
     rng = np.random.default_rng(seed)
@@ -266,10 +266,10 @@ def _unit_cube_random_pair_mean(
 
 
 # Mean pairwise normalised L2 between uniform random points in the
-# d-dimensional unit cube (d = len(_CONTINUOUS_VARIABLES) = 9), computed
-# with the same estimator as the feasible null. ~1.20; this is the
+# d-dimensional unit cube (d = len(_DISTANCE_VARIABLES) = 8), computed
+# with the same estimator as the feasible null. ~1.13; this is the
 # random-pair null the feasible baseline is compared against.
-UNIT_CUBE_RANDOM_PAIR: float = _unit_cube_random_pair_mean(len(_CONTINUOUS_VARIABLES))
+UNIT_CUBE_RANDOM_PAIR: float = _unit_cube_random_pair_mean(len(_DISTANCE_VARIABLES))
 
 
 def compute_feasible_baseline(

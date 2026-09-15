@@ -2,8 +2,8 @@
 
 The rediscovery distance ratio historically rests on the unit-cube
 random-pair null (the mean pairwise L2 between uniform unit-cube points,
-~1.20), which is generous because the box is mostly infeasible. (The
-closed-form RMS separation sqrt(9/6) ~= 1.22 is slightly larger, but the
+~1.13), which is generous because the box is mostly infeasible. (The
+closed-form RMS separation sqrt(8/6) ~= 1.15 is slightly larger, but the
 mean is the matched analogue of the feasible-region mean reported here.)
 This script builds the tougher null the paper
 outline (pre-submission checklist) calls for: a feasibility-restricted
@@ -17,7 +17,7 @@ When a rediscovery summary CSV is available (``--rediscovery-summary``,
 defaults to ``reports/rediscovery_loo_evaluator/summary.csv``) the script
 joins it and emits both ratios per rover:
 
-- ``ratio_vs_unit_cube``  = design_space_distance / ~1.20 (the old null)
+- ``ratio_vs_unit_cube``  = design_space_distance / ~1.13 (the old null)
 - ``ratio_vs_feasible``   = design_space_distance / feasible_random_pair_mean
                             (the defensible, tougher null)
 
@@ -178,13 +178,13 @@ def _markdown(df: pd.DataFrame, args: argparse.Namespace) -> str:
         f"- Feasibility: "
         f"`{'physical viability + mass ceiling' if args.require_mass_ceiling else 'physical viability (not stalled, energy >= 0, range > 0)'}`",
         f"- Unit-cube random-pair null (reference): "
-        f"`{UNIT_CUBE_RANDOM_PAIR:.3f}` (mean pairwise L2; RMS sqrt(9/6)=1.225)",
+        f"`{UNIT_CUBE_RANDOM_PAIR:.3f}` (mean pairwise L2; RMS sqrt(8/6)=1.155)",
         "",
         "## What this is",
         "",
         "The historical rediscovery ratio divides each rover's nearest-",
         "Pareto design-space distance by the **unit-cube** random-pair null",
-        "(~1.20). A reviewer can object that the 9-D box includes physically",
+        "(~1.13). A reviewer can object that the 8-D box includes physically",
         "infeasible designs (rovers that stall, run an energy deficit, or",
         "make no forward progress), so a null spanning it is trivially",
         "beatable. This baseline restricts the random comparison to",
@@ -193,8 +193,8 @@ def _markdown(df: pd.DataFrame, args: argparse.Namespace) -> str:
         "the tougher, defensible null (`feasible_random_pair_mean`).",
         "",
         "Empirically the physically-feasible region fills most of the box",
-        "(`feas_frac` ~0.77-0.92), so the feasible null (~1.17) sits only",
-        "marginally below ~1.20 — which is the reportable result: the",
+        "(`feas_frac` ~0.77-0.92), so the feasible null (~1.10) sits only",
+        "marginally below ~1.13 — which is the reportable result: the",
         "rediscovery ratio is **not** an artifact of infeasible space.",
         "",
         "## Per-rover results",
@@ -266,10 +266,10 @@ def _markdown(df: pd.DataFrame, args: argparse.Namespace) -> str:
             "## Interpretation",
             "",
             "- `feasible_random_pair_mean` is the tougher analogue of the",
-            "  ~1.20 unit-cube null: the typical separation between two random",
+            "  ~1.13 unit-cube null: the typical separation between two random",
             "  *feasible* rovers under the rover's scenario. Because physical",
             "  viability fills most of the box (`feas_frac`), this null",
-            "  (~1.17) sits only marginally below ~1.20, and `ratio_vs_feasible`",
+            "  (~1.10) sits only marginally below ~1.13, and `ratio_vs_feasible`",
             "  stays close to `ratio_vs_unit_cube`. The takeaway is the honest",
             "  one a reviewer asked for: the rediscovery ratio survives the",
             "  feasibility-restricted null, so it is not an artifact of a null",

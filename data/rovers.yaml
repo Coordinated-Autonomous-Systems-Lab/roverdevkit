@@ -129,16 +129,16 @@ rovers:
     launch_year: { value: 2025, provenance: imputed, source: "2024-2025 launch / deployment window (NASA/JPL CADRE)" }
     landing_latitude_deg: { value: -85.0, provenance: imputed, source: "lunar south polar region target (design scenario)" }
     landing_site: { value: "Lunar south pole region", provenance: published, source: "NASA/JPL CADRE project materials" }
-    mass_total_kg: { value: 2.0, provenance: published, source: "Rothenbuchner et al. 2023 IEEE Aerospace #2300 (per-unit ~2 kg)" }
-    n_wheels: { value: 4, provenance: published, source: "Rothenbuchner et al. 2023 IEEE Aerospace #2300" }
-    wheel_radius_m: { value: 0.08, provenance: published, source: "Rothenbuchner et al. 2023 IEEE Aerospace #2300" }
-    wheel_width_m: { value: 0.04, provenance: imputed, source: "class-typical aspect ratio for ultra-micro wire-spoke wheel" }
-    grouser_height_m: { value: 0.0, provenance: published, source: "smooth wire-spoke rims (JPL flotilla imagery)" }
-    grouser_count: { value: 0, provenance: published, source: "smooth wire-spoke rims (JPL flotilla imagery)" }
-    wheelbase_m: { value: 0.30, provenance: published, source: "Rothenbuchner et al. 2023 IEEE Aerospace #2300" }
-    solar_area_m2: { value: 0.10, provenance: published, source: "Rothenbuchner et al. 2023 IEEE Aerospace #2300 (small body-mounted array)" }
-    battery_capacity_wh: { value: 10.0, provenance: imputed, source: "power-budget back-solve (short coordinated drives)" }
-    payload_mass_kg: { value: 0.3, provenance: imputed, source: "stereo camera + small comms-ranging payload (estimated)" }
+    mass_total_kg: { value: 8.6, provenance: published, source: "NASA/JPL CADRE Technology Demonstration Fact Sheet (close to 19 lb / 8.6 kg per rover)" }
+    n_wheels: { value: 4, provenance: published, source: "NASA/JPL CADRE Technology Demonstration Fact Sheet" }
+    wheel_radius_m: { value: 0.06, provenance: imputed, source: "from published 0.235 m height, no suspension (fact sheet)" }
+    wheel_width_m: { value: 0.05, provenance: imputed, source: "class-typical aspect ratio for 0.06 m aluminium flight wheel" }
+    grouser_height_m: { value: 0.005, provenance: imputed, source: "small grousers on JPL CADRE flight-unit photography" }
+    grouser_count: { value: 12, provenance: imputed, source: "class-typical 12-tooth pattern" }
+    wheelbase_m: { value: 0.30, provenance: imputed, source: "estimated from published 0.546 m body length" }
+    solar_area_m2: { value: 0.23, provenance: imputed, source: "two deployable wings from fact-sheet open/closed width times body length" }
+    battery_capacity_wh: { value: 40.0, provenance: imputed, source: "class-scaled from Rashid 50 Wh / Tenacious 25 Wh at 8.6 kg" }
+    payload_mass_kg: { value: 0.5, provenance: imputed, source: "ground-penetrating radar payload (nav cameras counted in avionics)" }
 
   - name: MoonRanger
     aliases: []
@@ -161,7 +161,7 @@ rovers:
     status: { value: flown_mars, provenance: published, source: "NASA Mars Pathfinder / Sojourner (Mars-gravity proxy, not lunar)" }
     agency: { value: NASA/JPL, provenance: published, source: "Wilcox & Nguyen 1998" }
     launch_year: { value: 1996, provenance: published, source: "Mars Pathfinder launched Dec 1996, landed Jul 1997" }
-    mass_total_kg: { value: 10.6, provenance: published, source: "Wilcox & Nguyen 1998" }
+    mass_total_kg: { value: 11.5, provenance: published, source: "Wilcox & Nguyen 1998 SAE 981695 (full-up mobile mass including APXS)" }
     n_wheels: { value: 6, provenance: published, source: "Wilcox & Nguyen 1998" }
     wheel_radius_m: { value: 0.065, provenance: published, source: "Wilcox & Nguyen 1998" }
     wheel_width_m: { value: 0.08, provenance: imputed, source: "estimated" }

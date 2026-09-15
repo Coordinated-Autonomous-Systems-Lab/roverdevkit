@@ -49,7 +49,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       </header>
       <main className="mx-auto max-w-6xl px-6 py-6">{children}</main>
       <footer className="mx-auto max-w-6xl px-6 py-6 text-xs text-[var(--color-muted-foreground)]">
-        Autonomous Mission Systems Lab · Duke University
+        Collaborative Autonomous Systems Lab · Duke University
       </footer>
     </div>
   );

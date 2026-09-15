@@ -125,7 +125,7 @@ def main(argv: list[str] | None = None) -> int:
 
     ax.set_yticks(list(y))
     ax.set_yticklabels(df["rover_name"])
-    ax.set_xlabel("design-space distance (normalised L2, 9-D)")
+    ax.set_xlabel("design-space distance (normalised L2, 8-D)")
     ax.set_title(f"Rediscovery distance per rover (in-scope median = {in_scope_median:.2f})")
     ax.set_xlim(0, max(unit_cube_null, float(df["rover_to_centroid_distance"].max())) + 0.22)
 

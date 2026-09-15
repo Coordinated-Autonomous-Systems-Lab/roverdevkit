@@ -10,7 +10,7 @@ readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.11"
 authors = [
-  { name = "Autonomous Mission Systems Lab, Duke University" },
+  { name = "Collaborative Autonomous Systems Lab, Duke University" },
 ]
 keywords = [
   "lunar",
@@ -68,7 +68,7 @@ dev = [
 ]
 
 [project.urls]
-Repository = "https://github.com/Autonomous-Mission-Systems-Lab/roverdevkit"
+Repository = "https://github.com/Collaborative-Autonomous-Systems-Lab/roverdevkit"
 
 [tool.setuptools.packages.find]
 include = ["roverdevkit*"]

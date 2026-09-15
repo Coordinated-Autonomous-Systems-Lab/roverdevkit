@@ -17,6 +17,7 @@ import numpy as np
 
 from roverdevkit.tradespace.optimizer import DESIGN_BOUNDS, DESIGN_VARIABLES
 from roverdevkit.validation.rediscovery_baseline import (
+    _DISTANCE_VARIABLES,
     UNIT_CUBE_RANDOM_PAIR,
     _is_feasible,
     _mean_pairwise_l2,
@@ -28,10 +29,13 @@ from roverdevkit.validation.rediscovery_baseline import (
 def test_unit_cube_constant() -> None:
     # The null is the *mean* pairwise L2 between uniform unit-cube points,
     # matched to the feasible-null estimator. It is strictly below the
-    # closed-form RMS separation sqrt(9/6) (Jensen) and lands near 1.20.
-    rms = float(np.sqrt(9.0 / 6.0))
+    # closed-form RMS separation sqrt(d/6) (Jensen) and lands near 1.13 for
+    # the d = 8 variables the evaluator consumes (wheelbase is excluded).
+    d = len(_DISTANCE_VARIABLES)
+    assert d == 8
+    rms = float(np.sqrt(d / 6.0))
     assert UNIT_CUBE_RANDOM_PAIR < rms
-    assert UNIT_CUBE_RANDOM_PAIR == 1.203010901890861
+    assert UNIT_CUBE_RANDOM_PAIR == 1.1320906765526066
 
 
 def test_sample_designs_within_bounds() -> None:
