@@ -16,11 +16,11 @@ physics-based mission evaluator, calibrated surrogate predictions, parametric
 sweeps, NSGA-II multi-objective optimization, and SHAP-style design
 explanations.
 
-- Source code: <https://github.com/Collaborative-Autonomous-Systems-Lab/roverdevkit>
+- Source code: <https://github.com/Coordinated-Autonomous-Systems-Lab/roverdevkit>
 - Paper preprint: <https://arxiv.org/abs/2606.21755>
 
 This Space runs the single-container build from
-[`webapp/Dockerfile`](https://github.com/Collaborative-Autonomous-Systems-Lab/roverdevkit/blob/main/webapp/Dockerfile):
+[`webapp/Dockerfile`](https://github.com/Coordinated-Autonomous-Systems-Lab/roverdevkit/blob/main/webapp/Dockerfile):
 one `uvicorn` process serves the FastAPI backend and the React single-page app
 from the same origin on port 8000.
 
